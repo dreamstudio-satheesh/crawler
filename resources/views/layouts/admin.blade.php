@@ -231,7 +231,7 @@
         <footer class="footer mt-auto">
             <div class="copyright bg-white">
                 <p>
-                    &copy; <span id="copy-year">2023</span> Salem Corporation . All rights reserved.
+                    &copy; <span id="copy-year">2023</span> Admin Panel . All rights reserved.
                 </p>
             </div>
             <script>
