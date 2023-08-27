@@ -2,12 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\TenderController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\ResourceController;
-use App\Http\Controllers\NewsEventController;
+use App\Http\Controllers\WebsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +35,9 @@ Auth::routes([
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/tenders', [TenderController::class, 'index'])->name('tenders.index');
-Route::get('/tenders/create', [TenderController::class, 'create'])->name('tenders.create');
-Route::post('/tenders', [TenderController::class, 'store'])->name('tenders.store');
-Route::delete('/tenders/{id}', [TenderController::class, 'destroy'])->name('tenders.destroy');
+Route::get('/websites', [WebsiteController::class, 'index'])->name('websites.index');
+Route::get('/websites/create', [WebsiteController::class, 'create'])->name('websites.create');
+Route::post('/websites', [WebsiteController::class, 'store'])->name('websites.store');
+Route::delete('/websites/{id}', [WebsiteController::class, 'destroy'])->name('websites.destroy');
 
 

@@ -95,9 +95,9 @@
                         </li>
 
                         <li>
-                            <a class="sidenav-item-link" href="{{ url('tenders') }}">
+                            <a class="sidenav-item-link" href="{{ url('websites') }}">
                                 <i class="mdi mdi-script-text-outline"></i>
-                                <span class="nav-text">Tenders</span>
+                                <span class="nav-text">Websites</span>
 
                             </a>
                         </li>

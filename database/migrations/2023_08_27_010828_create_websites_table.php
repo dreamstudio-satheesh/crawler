@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tenders', function (Blueprint $table) {
+        Schema::create('websites', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->decimal('estimate_amount', 10, 2)->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
-            $table->string('file_path')->nullable();
-            $table->string('file_name')->nullable();
+            $table->string('url');
+            $table->string('product_url')->nullable();
+            /* $table->string('title')->nullable();
+            $table->string('description')->nullable();
+            $table->string('price')->nullable(); */
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tenders');
+        Schema::dropIfExists('websites');
     }
 };
