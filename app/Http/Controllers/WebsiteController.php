@@ -29,7 +29,15 @@ class WebsiteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'url' => 'required|string|max:255',
+            'product_url' => 'required|string|max:255',
+
+        ]);
+
+        $division = Website::create($data);
+
+        return redirect()->route('websites.index', $division->name)->with('success', 'Website created successfully!');
     }
 
     /**

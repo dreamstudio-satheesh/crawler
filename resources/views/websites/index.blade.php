@@ -9,9 +9,9 @@
             <div class="col-12">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                        <h2>Tenders</h2>
+                        <h2>websites</h2>
 
-                        <a  href="{{ url('tenders/create') }}"  class="btn btn-outline-primary">
+                        <a  href="{{ url('websites/create') }}"  class="btn btn-outline-primary">
                             <i class=" mdi mdi-plus"></i> Create
                         </a>
                     </div>
@@ -26,17 +26,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($tenders as $tender)
+                                @foreach ($websites as $website)
                                     <tr>
-                                        <th scope="row"><a href="#" class="fw-semibold">#{{ $tender->id }}</a>
+                                        <th scope="row"><a href="#" class="fw-semibold">#{{ $website->id }}</a>
                                         </th>
-                                        <td>{{ $tender->name }}</td>
+                                        <td>{{ $website->url }}</td>
                                         <td>
 
                                             <div class="d-flex gap-2">
                                                
                                                 <div class="remove">
-                                                    <form action="{{ route('tenders.destroy', $tender->id) }}"
+                                                    <form action="{{ route('websites.destroy', $website->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

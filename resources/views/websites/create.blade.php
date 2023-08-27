@@ -9,13 +9,12 @@
             <div class="col-8 offset-2">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                        <h2>Tender Document</h2>
+                        <h2>Add Website</h2>
 
                     </div>
 
                     <div class="card-body">
-                        <form class="form" action="{{ route('tenders.store') }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form class="form" action="{{ route('websites.store') }}" method="POST" >
                             @csrf
                             @if ($errors->any())
                                 <div class="mb-3">
@@ -30,38 +29,19 @@
                             @endif
 
                             <div class="form-group">
-                                <label for="title" class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control" required>
+                                <label for="title" class="form-label">Add URL</label>
+                                <input type="text" name="url" class="form-control" placeholder="https://example.com/" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="title" class="form-label">Estimate Amoount</label>
-                                <input type="text" name="estimate_amount" class="form-control" required>
+                                <label for="title" class="form-label">Product URL</label>
+                                <input type="text" name="product_url" class="form-control" placeholder="https://example.com/products/" required>
                             </div>
-
-                            <div class="form-group">
-                                <label for="title" class="form-label">Tender Date</label>
-                                <input type="date" name="start_date" class="form-control" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="title" class="form-label">Closing Date</label>
-                                <input type="date" name="end_date" class="form-control" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="document" class="form-label">Upload Documents</label>
-                                <input type="file" name="document" class="form-control"
-                                    accept="application/msword, application/vnd.ms-excel,
-                                        text/plain, application/pdf">
-                            </div>
-
-
 
 
 
                             <div class="form-group justify-content-end">
-                                <button type="submit" class="btn btn-primary btn-default">Upload Document</button>
+                                <button type="submit" class="btn btn-primary btn-default">Add URL</button>
                             </div>
 
 
