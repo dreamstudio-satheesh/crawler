@@ -72,13 +72,14 @@ class ScrapeLinks extends Command
     }
 
     $this->info("Scraping completed.");
+
 }
 
 
 
  private function storeLinks($url,$WebId)
     {
-        ScrapedLink::create([
+        ScrapedLink::insertOrIgnore([
             'website_id' => $WebId,
             'url' => $url,
         ]);

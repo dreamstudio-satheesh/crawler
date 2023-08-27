@@ -2,64 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use Artisan;
+use App\Models\Website;
+use App\Jobs\Scrapelink;
 use App\Models\Scrapedlink;
 use Illuminate\Http\Request;
 
 class ScrapedlinkController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function scrape_products($id)
     {
-        
+         $website = Website::where('id',$id)->first();
+        if ($website)  {
+            Scrapelink::dispatch( ['id' => $website->id,'url' => $website->url ,'page' => $website->product_url]);
+            return back();
+        }
+
+      
+        // dd(Artisan::output());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Scrapedlink $scrapedlink)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Scrapedlink $scrapedlink)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Scrapedlink $scrapedlink)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Scrapedlink $scrapedlink)
-    {
-        //
+        $scrapedlinks = Scrapedlink::where('website_id', $id)->get();
+        return view('scrapedlinks', compact('scrapedlinks'));
     }
 }

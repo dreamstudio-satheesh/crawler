@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         <div class="breadcrumb-wrapper">
-            
+
         </div>
         <div class="row">
             <div class="col-12">
@@ -11,7 +11,7 @@
                     <div class="card-header card-header-border-bottom d-flex justify-content-between">
                         <h2>websites</h2>
 
-                        <a  href="{{ url('websites/create') }}"  class="btn btn-outline-primary">
+                        <a href="{{ url('websites/create') }}" class="btn btn-outline-primary">
                             <i class=" mdi mdi-plus"></i> Create
                         </a>
                     </div>
@@ -32,16 +32,18 @@
                                         </th>
                                         <td>{{ $website->url }}</td>
                                         <td>
-
-                                            <div class="d-flex gap-2">
-                                               
-                                                <div class="remove">
+                                          
+                                            <div class="btn-group mr-2 mb-3">
+                                                    <a class="mb-1 btn btn-sm btn-primary"
+                                                    href="{{ url('product_links') }}/{{ $website->id }}">Product Links</a>
+                                                </div>
+                                                <div class="btn-group mb-3">
                                                     <form action="{{ route('websites.destroy', $website->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="btn btn-sm btn-primary remove-item-btn">Remove</button>
+                                                            class="mb-1 btn btn-sm btn-danger">Remove</button>
                                                     </form>
                                                 </div>
                                             </div>

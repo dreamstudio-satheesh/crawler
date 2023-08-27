@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebsiteController;
+use App\Http\Controllers\ScrapedlinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,5 +40,8 @@ Route::get('/websites', [WebsiteController::class, 'index'])->name('websites.ind
 Route::get('/websites/create', [WebsiteController::class, 'create'])->name('websites.create');
 Route::post('/websites', [WebsiteController::class, 'store'])->name('websites.store');
 Route::delete('/websites/{id}', [WebsiteController::class, 'destroy'])->name('websites.destroy');
+
+Route::get('/product_links/{id}', [ScrapedlinkController::class, 'show'])->name('scraped.links');
+Route::get('/scrape_products/{id}', [ScrapedlinkController::class, 'scrape_products'])->name('scrape.products');
 
 

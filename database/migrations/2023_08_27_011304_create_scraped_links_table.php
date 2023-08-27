@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('scraped_links', function (Blueprint $table) {
             $table->id();
-            $table->string('url');
+            $table->string('url')->unique();
             $table->unsignedBigInteger('website_id');
             $table->timestamps();
 
