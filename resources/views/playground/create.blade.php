@@ -9,12 +9,12 @@
             <div class="col-8 offset-2">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                        <h2>Add Website</h2>
+                        <h2>Scrape product from URL</h2>
 
                     </div>
 
                     <div class="card-body">
-                        <form class="form" action="{{ route('websites.store') }}" method="POST" >
+                        <form class="form" action="{{ route('playground.store') }}" method="POST" >
                             @csrf
                             @if ($errors->any())
                                 <div class="mb-3">
@@ -29,42 +29,28 @@
                             @endif
 
                             <div class="form-group">
-                                <label for="title" class="form-label">Add URL</label>
+                                <label for="title" class="form-label">Product page URL</label>
                                 <input type="text" name="url" class="form-control" placeholder="https://example.com/" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="title" class="form-label">Product URL</label>
-                                <input type="text" name="product_url" class="form-control" placeholder="https://example.com/products/" required>
-                            </div>
-
-                            <div class="form-group">
                                 <label for="title" class="form-label">Title CSS Selector</label>
-                                <input type="text" name="title" class="form-control" placeholder="h1.product-name" >
+                                <input type="text" name="title" class="form-control" placeholder="h1.product-name" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Description Selector</label>
-                                <input type="text" name="description" class="form-control"  >
+                                <input type="text" name="description" class="form-control" placeholder="h1.product-name" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Price CSS Selector</label>
-                                <input type="text" name="price" class="form-control"  >
+                                <input type="text" name="price" class="form-control" placeholder="h1.product-name" required>
                             </div>
-
-
-                            <div class="form-group">
-                                <label for="title" class="form-label">Image CSS Selector</label>
-                                <input type="text" name="image" class="form-control"  >
-                            </div>
-
-
-
 
 
                             <div class="form-group justify-content-end">
-                                <button type="submit" class="btn btn-primary btn-default">Add URL</button>
+                                <button type="submit" class="btn btn-primary btn-default">Grab Product</button>
                             </div>
 
 

@@ -103,33 +103,14 @@
                         </li>
 
                         <li>
-                            <a class="sidenav-item-link" href="{{ url('news_events') }}">
+                            <a class="sidenav-item-link" href="{{ url('playground') }}">
                                 <i class="mdi mdi-newspaper"></i>
-                                <span class="nav-text">News & Events</span>
-
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="sidenav-item-link" href="{{ url('galleries') }}">
-                                <i class="mdi mdi-image-outline"></i>
-                                <span class="nav-text">Gallery</span>
-
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="sidenav-item-link" href="{{ url('resources') }}">
-                                <i class="mdi mdi-file-document-box-multiple"></i>
-                                <span class="nav-text">Resources</span>
+                                <span class="nav-text">Playground</span>
 
                             </a>
                         </li>
 
                        
-
-
-
                     </ul>
 
                 </div>

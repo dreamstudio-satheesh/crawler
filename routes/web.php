@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\ScrapedlinkController;
 
@@ -44,4 +46,8 @@ Route::delete('/websites/{id}', [WebsiteController::class, 'destroy'])->name('we
 Route::get('/product_links/{id}', [ScrapedlinkController::class, 'show'])->name('scraped.links');
 Route::get('/scrape_products/{id}', [ScrapedlinkController::class, 'scrape_products'])->name('scrape.products');
 
+Route::get('/playground', [ScrapedlinkController::class, 'play'])->name('playground.create');
+Route::post('/playground', [ScrapedlinkController::class, 'play'])->name('playground.store');
+
+Route::get('/product_list/{id}', [ProductController::class, 'list'])->name('products.lists');
 

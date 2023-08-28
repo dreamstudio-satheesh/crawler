@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->string('product_url')->nullable();
-            /* $table->string('title')->nullable();
+            $table->string('title')->nullable();
             $table->string('description')->nullable();
-            $table->string('price')->nullable(); */
+            $table->string('price')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

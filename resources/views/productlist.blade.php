@@ -9,27 +9,29 @@
             <div class="col-12">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                        <h2>Product links </h2>
+                        <h2>Product List </h2>
                     </div>
 
                     <div class="card-body">
 
-                        @if (count($scrapedlinks))
+                        @if (count($products))
                             <table id="basic-data-table" class="table nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($scrapedlinks as $links)
+                                    @foreach ($products as $item)
                                         <tr>
                                             <th scope="row"><a href="#"
-                                                    class="fw-semibold">#{{ $links->id }}</a>
+                                                    class="fw-semibold">#{{ $item->id }}</a>
                                             </th>
-                                            <td>{{ $links->url }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->price }}</td>
                                             <td></td>
                                         </tr>
                                     @endforeach
@@ -37,11 +39,9 @@
                                 </tbody>
                             </table>
                         @else
-                            <h1>Product links not found</h1>
+                            <h1>Products  not found</h1>
                             <br>
-                            <div class="d-flex justify-content-end mt-5">
-                                <a href="{{ url('scrape_products')}}/{{ Request::segment(2) }}" class="btn btn-outline-primary mb-2 btn-pill"> Run Command</a>
-                            </div>
+                           
                         @endif
 
 

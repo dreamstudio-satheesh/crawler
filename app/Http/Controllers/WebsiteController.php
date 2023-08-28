@@ -32,6 +32,10 @@ class WebsiteController extends Controller
         $data = $request->validate([
             'url' => 'required|string|max:255',
             'product_url' => 'required|string|max:255',
+            'title' => 'nullable',
+            'description' => 'nullable',
+            'price' => 'nullable',
+            'image' => 'nullable',
 
         ]);
 

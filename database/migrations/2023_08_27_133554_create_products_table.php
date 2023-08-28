@@ -11,15 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scraped_links', function (Blueprint $table) {
-            $table->id();
-            $table->string('url')->unique();
-            $table->longText('content')->nullable();
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();            
+            $table->unsignedBigInteger('links_id')->unique();
+            $table->string('name')->nullable();
+            $table->mediumText('description')->nullable();
+            $table->string('price')->nullable();
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('website_id');
             $table->timestamps();
 
+
             // Foreign key constraints
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
+            $table->foreign('links_id')->references('id')->on('scraped_links')->onDelete('cascade');
         });
     }
 
@@ -28,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scraped_links');
+        Schema::dropIfExists('products');
     }
 };
