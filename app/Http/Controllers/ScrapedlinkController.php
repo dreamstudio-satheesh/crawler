@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Artisan;
 use App\Models\Website;
 use App\Jobs\Scrapelink;
-use App\Models\Scrapedlink;
+use App\Models\ScrapedLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
@@ -26,7 +26,7 @@ class ScrapedlinkController extends Controller
 
     public function show($id)
     {
-        $scrapedlinks = Scrapedlink::where('website_id', $id)->get();
+        $scrapedlinks = ScrapedLink::where('website_id', $id)->get();
         return view('scrapedlinks', compact('scrapedlinks'));
     }
 
