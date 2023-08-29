@@ -65,7 +65,9 @@ class ScrapeLinks extends Command
                 } else {
                     $this->info("Links not found on $startingUrl : $url");
                 }
+
             }
+            sleep(0.5);
         }
 
         $this->info('Scraping completed.');

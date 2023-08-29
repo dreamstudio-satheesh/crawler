@@ -18,6 +18,7 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->string('price')->nullable();
             $table->string('image')->nullable();
+            $table->string('image_link')->nullable();
             $table->unsignedBigInteger('website_id');
             $table->timestamps();
 
