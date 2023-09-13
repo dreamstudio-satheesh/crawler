@@ -6,8 +6,42 @@
 
         </div>
         <div class="row">
-            <div class="col-12">
-                <div class="card card-default">
+            @if (count($products))
+                @foreach ($products as $item)
+                    <div class="col-lg-8 col-xl-6">
+                        <div class="card card-default p-4">
+                            <a href="javascript:0" class="media text-secondary" data-toggle="modal"
+                                data-target="#modal-contact">
+                                <img width="80px" src="{{ url('')}}/{{ $item->image }}" class="mr-3 img-fluid rounded" alt="Avatar Image">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-2 text-dark">{{ $item->name }}</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="d-flex mb-1">
+                                            <i class="mdi mdi-map mr-1"></i>
+                                            <span>{{ $item->price }}</span>
+                                        </li>
+                                        <li class="d-flex mb-1">
+                                            
+                                            <p>{{ substr($item->description, 0, 150)  }}...</p>
+                                        </li>
+                                        
+                                    </ul>
+
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                @endforeach
+
+    
+    @else
+        <h1>Products not found</h1>
+        <br>
+        @endif
+        </div>
+
+        {{--  <div class="card card-default">
                     <div class="card-header card-header-border-bottom d-flex justify-content-between">
                         <h2>Product List </h2>
                     </div>
@@ -47,22 +81,21 @@
 
 
                     </div>
-                </div>
-            </div>
-        @endsection
+                </div> --}}
+    @endsection
 
-        @push('css')
-            <link href="assets/plugins/data-tables/datatables.bootstrap4.min.css" rel="stylesheet">
-        @endpush
+    @push('css')
+        <link href="assets/plugins/data-tables/datatables.bootstrap4.min.css" rel="stylesheet">
+    @endpush
 
-        @push('scripts')
-            <script src="assets/plugins/data-tables/jquery.datatables.min.js"></script>
-            <script src="assets/plugins/data-tables/datatables.bootstrap4.min.js"></script>
-            <script>
-                jQuery(document).ready(function() {
-                    jQuery('#basic-data-table').DataTable({
-                        "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
-                    });
+    @push('scripts')
+        <script src="assets/plugins/data-tables/jquery.datatables.min.js"></script>
+        <script src="assets/plugins/data-tables/datatables.bootstrap4.min.js"></script>
+        <script>
+            jQuery(document).ready(function() {
+                jQuery('#basic-data-table').DataTable({
+                    "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
                 });
-            </script>
-        @endpush
+            });
+        </script>
+    @endpush

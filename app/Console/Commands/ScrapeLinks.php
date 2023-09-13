@@ -40,7 +40,18 @@ class ScrapeLinks extends Command
                 foreach ($links as $link) {
                     $href = $link->getUri();
                     $parsedUrl = parse_url($href);
-                    $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg']; // Add more if needed
+
+                    if (strpos($href, $productsLink) !== false) {
+                        if (!Str::contains($href, '#')) {
+                            $this->storeLinks($href, $id); // Store the link in the database
+                            $this->info("Links found on : $href");
+                        }
+                        
+                    } else {
+                        // $this->info("Links not found on  : $href");
+                    }
+
+                    $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'pdf']; // Add more if needed
 
                     if (isset($parsedUrl['host']) && $parsedUrl['host'] === $domain) {
                         if (!isset($parsedUrl['scheme'])) {
@@ -48,26 +59,26 @@ class ScrapeLinks extends Command
                             $href = $url . (isset($parsedUrl['path']) ? $parsedUrl['path'] : '') . (isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '');
                         }
 
-                        // Check if the URL extension is in the imageExtensions array
-                        $urlExtension = pathinfo($parsedUrl['path'], PATHINFO_EXTENSION);
-                        if (!in_array(strtolower($urlExtension), $imageExtensions) && !Str::contains($parsedUrl['path'], '#')) {
-                            $queue[] = $href;
+                        if (isset($parsedUrl['path'])) {
+                            // Check if the URL extension is in the imageExtensions array
+                            $urlExtension = pathinfo($parsedUrl['path'], PATHINFO_EXTENSION);
+                            //&& Str::contains($parsedUrl['path'], 'category')  && Str::contains($href, 'collections')
+                            if (!in_array(strtolower($urlExtension), $imageExtensions)  && !Str::contains($href, '#') && Str::contains($href, '/product-category/') && !Str::contains($href, '/product/') && !Str::contains($href, '?') ) {
+                                if (!in_array($href, $queue)) {
+                                    $queue[] = $href;
+                                    $this->info("Links queued on  $href");
+                                }
+                            }
                         }
                     }
                 }
-
-                $visited[] = $url;
-
-                if (strpos($url, $productsLink) !== false) {
-                    $this->storeLinks($url, $id, $response->body()); // Store the link in the database
-
-                    $this->info("Links found on $startingUrl: $url");
-                } else {
-                    $this->info("Links not found on $startingUrl : $url");
+                if (!in_array($url, $visited)) {
+                    $visited[] = $url;
                 }
-
+            } else {
+                // $this->info(" visted : $url");
             }
-            sleep(0.5);
+            sleep(0.25);
         }
 
         $this->info('Scraping completed.');
@@ -75,10 +86,22 @@ class ScrapeLinks extends Command
 
     private function storeLinks($url, $id, $content = null)
     {
-        ScrapedLink::insertOrIgnore([
-            'website_id' => $id,
-            'url' => $url,
-            'content' => $content,
-        ]);
+        if (ScrapedLink::where('url', $url)->exists()) {
+            // $this->info(" Record exists on  db : $url");
+        } else {
+
+            try {
+
+                ScrapedLink::insert([
+                    'website_id' => $id,
+                    'url' => $url,
+                    'content' => '',
+                ]);
+
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+          
+        }
     }
 }

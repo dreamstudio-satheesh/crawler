@@ -32,36 +32,32 @@ class ScrapedlinkController extends Controller
 
     public function play(Request $request)
     {
-       $title='';
-       
-        if ($request->url)
-        {
-            
-            $data = $request->validate([
-                'url' => 'required|url:http,https',  
-                'title' => 'required',
-                'description' => 'required',
-                'price' => 'required',
-            ]);
-            
+        $title = '';
 
-            $url=$request->url;
+        $data = [];
+
+        if ($request->url) {
+            $data = $request->validate([
+                'url' => 'required|url:http,https',
+            ]);
+
+            $url = $request->url;
             $response = Http::get($url);
             $crawler = new Crawler($response->body(), $url);
-            
-           $data['title'] = $crawler->filter('#features-tab > div > div > div > div.col-lg-7.product-area-wrap > div > h1')->text();
-
-           $data['description'] = $crawler->filter('#desc_tab > div > div > div > div > p')->text();
-
-           $data['price'] = $crawler->filter('#features-tab > div > div > div > div.col-lg-7.product-area-wrap > div > div.product-info-warranty > div > div.product-prices.product-row > div > div > strike > span > h2')->text();
-
-           $data['image']=$crawler->filter('#sync1 > div:nth-child(2) > div > img')->attr('src');
-            
-           return $data;
-        
+            if ($request->title) {
+                $data['title'] = $crawler->filter($request->title)->text();
+            }
+            if ($request->description) {
+                $data['description'] = $crawler->filter($request->description)->text();
+            }
+            if ($request->price) {
+                $data['price'] = $crawler->filter($request->price)->text();
+            }
+            if ($request->image) {
+                $data['image'] = $crawler->filter($request->image)->attr('src');
+            }
         }
-        
-            return view('playground.create',compact('title'));
-        
+
+        return view('playground.create', compact('title', 'data'));
     }
 }

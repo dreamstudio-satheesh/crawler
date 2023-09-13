@@ -62,7 +62,7 @@ class Grabitems extends Command
                 $data['image'] = "storage/products/$filename";
                 $data['links_id'] = $item->id;
                 $data['website_id'] = $item->website_id;
-                Product::insertOrIgnore($data);
+                Product::create($data);
 
                 $this->info('item added '. $data['name']);
                 $this->info('item added '. $data['price']);
@@ -75,7 +75,7 @@ class Grabitems extends Command
 
                 
 
-                sleep(0.5);
+                sleep(0.2);
 
             } catch (\Throwable $th) {
 
