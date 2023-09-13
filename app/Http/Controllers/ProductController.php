@@ -36,7 +36,7 @@ class ProductController extends Controller
                     return view('productlist', compact('products'));
                    
                 } else {
-                    Grabitems::dispatch(['id' => $id]);
+                   // Grabitems::dispatch(['id' => $id]);
                     return back();
                 }
 

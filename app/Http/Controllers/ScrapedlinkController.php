@@ -16,7 +16,7 @@ class ScrapedlinkController extends Controller
     {
          $website = Website::where('id',$id)->first();
         if ($website)  {
-            Scrapelink::dispatch( ['id' => $website->id,'url' => $website->url ,'page' => $website->product_url]);
+           // Scrapelink::dispatch( ['id' => $website->id,'url' => $website->url ,'page' => $website->product_url]);
             return back();
         }
 
