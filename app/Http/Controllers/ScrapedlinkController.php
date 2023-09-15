@@ -14,13 +14,12 @@ class ScrapedlinkController extends Controller
 {
     public function scrape_products($id)
     {
-         $website = Website::where('id',$id)->first();
-        if ($website)  {
-           // Scrapelink::dispatch( ['id' => $website->id,'url' => $website->url ,'page' => $website->product_url]);
+        $website = Website::where('id', $id)->first();
+        if ($website) {
+            // Scrapelink::dispatch( ['id' => $website->id,'url' => $website->url ,'page' => $website->product_url]);
             return back();
         }
 
-      
         // dd(Artisan::output());
     }
 
@@ -43,16 +42,17 @@ class ScrapedlinkController extends Controller
 
             $url = $request->url;
             $response = Http::get($url);
+
+            dd($response->body());
             $crawler = new Crawler($response->body(), $url);
 
             if ($request->title) {
                 $node = $crawler->filter($request->title);
                 if ($node->count() > 0) {
-                        $data['title'] = $node->text();
+                    $data['title'] = $node->text();
                 } else {
-                        $data['title'] = "title not found";
+                    $data['title'] = 'title not found';
                 }
-               
             }
             if ($request->description) {
                 $data['description'] = $crawler->filter($request->description)->text();
@@ -64,11 +64,10 @@ class ScrapedlinkController extends Controller
                 $node = $crawler->filter($request->image);
 
                 if ($node->count() > 0) {
-                     $data['image'] = $node->attr('src');
+                    $data['image'] = $node->attr('src');
                 } else {
-                     $data['image'] = "image not found";
+                    $data['image'] = 'image not found';
                 }
-               
             }
         }
 
