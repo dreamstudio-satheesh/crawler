@@ -44,6 +44,7 @@ class ScrapedlinkController extends Controller
             $url = $request->url;
             $response = Http::get($url);
             $crawler = new Crawler($response->body(), $url);
+            dd($response->body());
             if ($request->title) {
                 $data['title'] = $crawler->filter($request->title)->text();
             }
