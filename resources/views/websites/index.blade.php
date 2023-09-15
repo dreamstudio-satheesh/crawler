@@ -35,6 +35,11 @@
 
                                             <div class="btn-group mr-2 mb-3">
                                                 <a class="mb-1 btn btn-sm btn-primary"
+                                                    href="{{ url('websites') }}/{{ $website->id }}">Edit</a>
+                                            </div>
+
+                                            <div class="btn-group mr-2 mb-3">
+                                                <a class="mb-1 btn btn-sm btn-primary"
                                                     href="{{ url('product_links') }}/{{ $website->id }}">Product Links</a>
                                             </div>
                                             <div class="btn-group mr-2 mb-3">

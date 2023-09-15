@@ -39,8 +39,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('/websites', [WebsiteController::class, 'index'])->name('websites.index');
+Route::get('/websites/{id}', [WebsiteController::class, 'edit'])->name('websites.edit');
 Route::get('/websites/create', [WebsiteController::class, 'create'])->name('websites.create');
 Route::post('/websites', [WebsiteController::class, 'store'])->name('websites.store');
+Route::put('/websites/{id}', [WebsiteController::class, 'update'])->name('websites.update');
 Route::delete('/websites/{id}', [WebsiteController::class, 'destroy'])->name('websites.destroy');
 
 Route::get('/product_links/{id}', [ScrapedlinkController::class, 'show'])->name('scraped.links');

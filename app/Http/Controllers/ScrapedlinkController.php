@@ -54,7 +54,14 @@ class ScrapedlinkController extends Controller
                 $data['price'] = $crawler->filter($request->price)->text();
             }
             if ($request->image) {
-                $data['image'] = $crawler->filter($request->image)->attr('src');
+                $node = $crawler->filter($request->image);
+
+                if ($node->count() > 0) {
+                     $data['image'] = $node->attr('src');
+                } else {
+                     $data['image'] = "image not found";
+                }
+               
             }
         }
 

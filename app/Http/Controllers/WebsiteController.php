@@ -39,9 +39,9 @@ class WebsiteController extends Controller
 
         ]);
 
-        $division = Website::create($data);
+        Website::create($data);
 
-        return redirect()->route('websites.index', $division->name)->with('success', 'Website created successfully!');
+        return redirect()->route('websites.index')->with('success', 'Website created successfully!');
     }
 
     /**
@@ -49,23 +49,40 @@ class WebsiteController extends Controller
      */
     public function show(Website $website)
     {
-        //
+       
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Website $website)
+    public function edit($id)
     {
-        //
+        $website = Website::findOrFail($id);
+        return view('websites.edit',compact('website'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Website $website)
+    public function update(Request $request, $id)
     {
-        //
+        $website = Website::findOrFail($id);
+
+        $data = $request->validate([
+            'url' => 'required|string|max:255',
+            'product_url' => 'required|string|max:255',
+            'title' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'image' => 'required',
+
+        ]);
+
+        $website->update($data);
+
+        return redirect()->route('websites.index')->with('success', 'Website updated successfully!');
+
+        
     }
 
     /**

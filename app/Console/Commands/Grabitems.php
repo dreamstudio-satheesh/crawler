@@ -37,7 +37,12 @@ class Grabitems extends Command
                 $data['name'] = $crawler->filter($website->title)->text();
                 $data['description'] = $crawler->filter($website->description)->text();
                 $data['price'] = $crawler->filter($website->price)->text();
-                $data['image_link']=$crawler->filter($website->image)->attr('src');
+                if ($id == 2) {
+                    $data['image_link']=$crawler->filter($website->image)->attr('data-src');
+                }else{
+                    $data['image_link']=$crawler->filter($website->image)->attr('src');
+                }
+                
 
 
 
