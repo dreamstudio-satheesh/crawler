@@ -3,12 +3,12 @@
 @section('content')
     <div class="content">
         <div class="breadcrumb-wrapper">
-
+            {{ $products->links() }}
         </div>
         <div class="row">
             @if (count($products))
 
-            {{ $products->links() }}
+            
              
                 @foreach ($products as $item)
                     <div class="col-lg-8 col-xl-6">
