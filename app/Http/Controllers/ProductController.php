@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $id = $request->id;
         if ($id) {
-            $scrapedlinks = ScrapedLink::where('website_id', $id)->get();
+            $scrapedlinks = ScrapedLink::where('website_id', $id)->paginate(50);
             
             //check links already collected else redirect to product links page
             if ($scrapedlinks->count()) {
