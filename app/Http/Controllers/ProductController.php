@@ -24,15 +24,15 @@ class ProductController extends Controller
     {
         $id = $request->id;
         if ($id) {
-            $scrapedlinks = ScrapedLink::where('website_id', $id)->paginate(50);
+            $scrapedlinks = ScrapedLink::where('website_id', $id)->count();
             
             //check links already collected else redirect to product links page
-            if ($scrapedlinks->count()) {
+            if ($scrapedlinks) {
 
                 //check products is not empty
                 if (Product::where('website_id', $id)->count()) {
 
-                    $products=Product::where('website_id', $id)->get();
+                    $products=Product::where('website_id', $id)->paginate(50);
                     return view('productlist', compact('products'));
                    
                 } else {
@@ -40,7 +40,7 @@ class ProductController extends Controller
                     return back();
                 }
 
-                $website = Website::where('id', $id)->first();
+                
             } else {
                 return redirect('product_links/' . $id);
             }
