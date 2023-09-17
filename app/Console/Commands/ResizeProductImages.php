@@ -25,14 +25,22 @@ class ResizeProductImages extends Command
             $imagePath = public_path($product->image);
 
             if (file_exists($imagePath)) {
-                $image = Image::make($imagePath);
+                // Get the file size in bytes
+                $fileSize = filesize($imagePath);
 
-                $image->resize(400, 400, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
+                // If the file size is greater than 500 KB
+                if ($fileSize > (500 * 1024)) {
+                    $image = Image::make($imagePath);
 
-                $image->save($imagePath, 90);  // Save with 90% quality
+                    $image->resize(null, 400, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+
+                    $image->save($imagePath, 90); // Save with 90% quality
+                    $image->destroy();
+                }
+
+               
 
                 $this->info("Resized image for product ID: {$product->id}");
             } else {
