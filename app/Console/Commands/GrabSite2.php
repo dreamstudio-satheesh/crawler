@@ -92,6 +92,12 @@ class GrabSite2 extends Command
 
                         // Use Intervention Image to handle and save the image
                         $image = Image::make($response->body());
+
+                        // Resize the image to a width of 300px while maintaining the aspect ratio
+                        $image->resize(400, 400, function ($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                        });
                         Storage::disk('public')->put("products/$filename", (string) $image->encode($extension, 90));
                         $image->destroy();
 
@@ -114,8 +120,7 @@ class GrabSite2 extends Command
                             $product->price = $data['price'];
                             $product->save();
                             $this->info("Product price updated: Name - {$data['name']}, New Price - {$data['price']}");
-                        }
-                        else{
+                        } else {
                             $this->info("Product exist price not chnaged: Name - {$data['name']}, Price - {$data['price']},  Website ID - {$data['website_id']}");
                         }
                     } else {
@@ -124,7 +129,6 @@ class GrabSite2 extends Command
                         $this->info("Product added: Name - {$data['name']}, Price - {$data['price']}, Image Link - {$data['image_link']}, Links ID - {$data['links_id']}, Website ID - {$data['website_id']}");
                     }
 
-                   
                     // Unset large variables
                     unset($crawler);
                     unset($response);

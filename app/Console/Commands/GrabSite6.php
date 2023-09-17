@@ -97,10 +97,15 @@ class GrabSite6 extends Command
 
                         // Use Intervention Image to handle and save the image
                         $image = Image::make($response->body());
+
+                        // Resize the image to a width of 300px while maintaining the aspect ratio
+                        $image->resize(400, 400, function ($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                        });
+
                         Storage::disk('public')->put("products/$filename", (string) $image->encode($extension, 90));
                         $image->destroy();
-
-                        // Storage::disk('public')->put("products/$filename", $response->body());
 
                         $data['image'] = "storage/products/$filename";
                     } else {
