@@ -23,6 +23,8 @@ class ResizeProductImages extends Command
 
         foreach ($products as $product) {
             $imagePath = public_path($product->image);
+            
+            $this->info(" image  path: {$imagePath}");
 
             if (file_exists($imagePath)) {
                 // Get the file size in bytes
