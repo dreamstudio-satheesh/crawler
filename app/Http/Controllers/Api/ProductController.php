@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseController;
 
-class ProductController extends Controller
+class ProductController extends BaseController
 {
     public function __construct()
     {
