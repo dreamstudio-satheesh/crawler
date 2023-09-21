@@ -17,7 +17,7 @@ class IPCheckMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $ip = $request->ip();
-        dd($ip);
+       // dd($ip);
         $apiKey = $request->header('X-API-KEY');
 
         $access = DB::table('allowed_access')
