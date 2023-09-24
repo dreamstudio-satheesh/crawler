@@ -18,23 +18,14 @@ class ProductController extends BaseController
     public function search(Request $request)
     {
         $searchQuery = $request->input('query');
+        $per_page=10;
+        if($request->has('per_page'))  $per_page=$request->per_page;
+
         if ($searchQuery) {
-            $totalRecords = Product::where('name', 'LIKE', "%{$searchQuery}%")->count();
-            $skip = isset($request->page) ? $request->page : 0;
-
-            $products = Product::where('name', 'LIKE', "%{$searchQuery}%")
-            ->offset($skip)
-            ->limit(10)
-            ->get();
-
-            $balalceRecords = $totalRecords - ($skip + 10);
-            $nextpage ='false';
-            if ($balalceRecords > 0) {
-                $nextpage = 'true';
-            }
-
+            $products = Product::where('name', 'LIKE', "%{$searchQuery}%")->paginate($per_page);
+            
             $message = $products ? 'data fetched' : 'No record found';  
-            return $this->sendResponse(Productresource::collection($products), $message,$nextpage);
+            return $this->sendResponse(Productresource::collection($products), $message);
 
         //return response()->json($products);
         }

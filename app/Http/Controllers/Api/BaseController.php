@@ -17,9 +17,7 @@ class BaseController extends Controller
             'data'    => $result,
             'message' => $message,
         ];
-        if ($nextpage) {
-            $response['next_page'] =  $nextpage;
-        }
+       
         return response()->json($response, 200);
     }
 
