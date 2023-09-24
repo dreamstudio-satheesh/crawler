@@ -10,7 +10,7 @@ class BaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function sendResponse($result, $message, $nextpage=null)
+    public function sendResponse($result, $message)
     {
     	$response = [
             'success' => true,

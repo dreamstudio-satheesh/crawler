@@ -25,7 +25,9 @@ class ProductController extends BaseController
             $products = Product::where('name', 'LIKE', "%{$searchQuery}%")->paginate($per_page);
             
             $message = $products ? 'data fetched' : 'No record found';  
-            return $this->sendResponse(Productresource::collection($products), $message);
+
+            return response()->json(Productresource::collection($products), 200);
+           // return $this->sendResponse(Productresource::collection($products), $message);
 
         //return response()->json($products);
         }
