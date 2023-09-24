@@ -18,7 +18,7 @@ class ProductController extends BaseController
     public function search(Request $request)
     {
         $query = $request->input('query'); // getting the user input from query parameter
-        $per_page=5;
+        $per_page=20;
         if($request->has('per_page'))  $per_page=$request->per_page;
 
         if ($query) {
@@ -28,8 +28,18 @@ class ProductController extends BaseController
             $products = Product::where('name', 'LIKE', "%{$query}%")
                             ->orWhere('description', 'LIKE', "%{$query}%")
                             ->paginate($per_page);
+
+            return response()->json([
+                'data' => ProductResource::collection($products->items()),
+                'pagination' => [
+                    'current_page' => $products->currentPage(),
+                    'last_page' => $products->lastPage(),
+                    'per_page' => $products->perPage(),
+                    'total' => $products->total(),
+                ]
+            ], 200);
             
-            return ProductResource::collection($products)->response()->getData(true);
+            //return ProductResource::collection($products)->response()->getData(true);
             // return response()->json(Productresource::collection($products), 200);
         }
 
