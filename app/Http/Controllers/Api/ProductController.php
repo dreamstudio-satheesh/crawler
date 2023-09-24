@@ -18,7 +18,7 @@ class ProductController extends BaseController
     public function search(Request $request)
     {
         $query = $request->input('query'); // getting the user input from query parameter
-        $per_page=20;
+        $per_page=5;
         if($request->has('per_page'))  $per_page=$request->per_page;
 
         if ($query) {
