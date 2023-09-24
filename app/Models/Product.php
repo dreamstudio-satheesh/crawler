@@ -13,11 +13,11 @@ class Product extends Model
 
     public function link()
     {
-        return $this->hasOne(ScrapedLink::class, 'id')->select(['id','url']);
+        return $this->belongsTo(ScrapedLink::class, 'links_id')->select(['id','url']);
     }
 
     public function website()
     {
-        return $this->belongsTo(Website::class,'website_id');
+        return $this->belongsTo(Website::class,'website_id')->select(['id','url']);
     }
 }
