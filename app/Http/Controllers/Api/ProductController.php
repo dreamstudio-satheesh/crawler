@@ -29,8 +29,8 @@ class ProductController extends BaseController
                             ->orWhere('description', 'LIKE', "%{$query}%")
                             ->paginate($per_page);
             
-            
-            return response()->json(Productresource::collection($products), 200);
+            return ProductResource::collection($products)->response()->getData(true);
+            // return response()->json(Productresource::collection($products), 200);
         }
 
         
