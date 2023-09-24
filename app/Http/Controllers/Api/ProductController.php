@@ -17,19 +17,20 @@ class ProductController extends BaseController
 
     public function search(Request $request)
     {
-        $searchQuery = $request->input('query');
+        $query = $request->input('query'); // getting the user input from query parameter
         $per_page=20;
         if($request->has('per_page'))  $per_page=$request->per_page;
 
-        if ($searchQuery) {
-            $products = Product::where('name', 'LIKE', "%{$searchQuery}%")->paginate($per_page);
+        if ($query) {
+           
+
+            // perform search using Eloquent
+            $products = Product::where('name', 'LIKE', "%{$query}%")
+                            ->orWhere('description', 'LIKE', "%{$query}%")
+                            ->paginate($per_page);
             
-            $message = $products ? 'data fetched' : 'No record found';  
-
+            
             return response()->json(Productresource::collection($products), 200);
-           // return $this->sendResponse(Productresource::collection($products), $message);
-
-        //return response()->json($products);
         }
 
         
