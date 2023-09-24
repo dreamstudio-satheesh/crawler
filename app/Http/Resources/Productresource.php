@@ -14,7 +14,7 @@ class Productresource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        if (!is_null($this->website->url)) {
+     /*    if (!is_null($this->website->url)) {
            $web=$this->link->url;
         }
         else{
@@ -30,8 +30,8 @@ class Productresource extends JsonResource
             'website' => $web,
             'created_at' => $this->created_at->format('d-m-Y'),
             'updated_at' => $this->updated_at->format('d-m-Y'), 
-            ];
-       // return parent::toArray($request);
+            ]; */
+       return parent::toArray($request);
         
     }
 }
