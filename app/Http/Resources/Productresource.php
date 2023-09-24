@@ -14,12 +14,6 @@ class Productresource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-     /*    if (!is_null($this->website->url)) {
-           $web=$this->link->url;
-        }
-        else{
-            $web='null';
-        }
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -27,11 +21,11 @@ class Productresource extends JsonResource
             'price' => $this->price,
             'image' => url($this->image),
             'link' => $this->link->url,
-            'website' => $web,
+            'website' => $this->website->url,
             'created_at' => $this->created_at->format('d-m-Y'),
             'updated_at' => $this->updated_at->format('d-m-Y'), 
-            ]; */
-       return parent::toArray($request);
+            ];
+       // return parent::toArray($request);
         
     }
 }
