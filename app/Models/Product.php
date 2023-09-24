@@ -13,6 +13,6 @@ class Product extends Model
 
     public function link()
     {
-        return $this->hasOne(ScrapedLink::class, 'id')->select(['url']);
+        return $this->hasOne(ScrapedLink::class, 'id')->select(['id','url']);
     }
 }
