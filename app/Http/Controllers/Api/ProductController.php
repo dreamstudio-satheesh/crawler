@@ -27,6 +27,7 @@ class ProductController extends BaseController
             // perform search using Eloquent
             $products = Product::where('name', 'LIKE', "%{$query}%")
                             ->orWhere('description', 'LIKE', "%{$query}%")
+                            ->with(['link'])
                             ->paginate($per_page);
 
             return response()->json([

@@ -10,4 +10,9 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded=['id'];
+
+    public function link()
+    {
+        return $this->hasOne(ScrapedLink::class, 'links_id');
+    }
 }
