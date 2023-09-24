@@ -15,4 +15,9 @@ class Product extends Model
     {
         return $this->hasOne(ScrapedLink::class, 'id')->select(['id','url']);
     }
+
+    public function website()
+    {
+        return $this->hasOne(Website::class, 'id')->select(['id','url']);
+    }
 }
