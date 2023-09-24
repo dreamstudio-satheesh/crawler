@@ -18,6 +18,6 @@ class Product extends Model
 
     public function website()
     {
-        return $this->hasOne(Website::class, 'id')->select(['id','url']);
+        return $this->hasOne(Website::class, 'website_id')->select(['id','url']);
     }
 }
