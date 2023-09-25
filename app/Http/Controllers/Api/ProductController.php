@@ -12,7 +12,7 @@ class ProductController extends BaseController
 {
     public function __construct()
     {
-        //$this->middleware('ip.check');
+        $this->middleware('ip.check');
     }
 
     public function search(Request $request)
@@ -24,13 +24,11 @@ class ProductController extends BaseController
         if ($request->has('per_page')) {
             $per_page = $request->per_page;
         }
-
         $keywordArray = [];
 
         if ($keywords) {
             $keywordArray = strpos($keywords, ',') !== false ? explode(',', $keywords) : [$keywords];
         }
-
         $products = Product::query();
 
         if ($query) {
@@ -45,7 +43,6 @@ class ProductController extends BaseController
                 }
             });
         }
-
         // Prioritize rows that have exact match with $query
         if ($query) {
             $products->orderByRaw('CASE WHEN name = ? THEN 1 ELSE 2 END, name', [$query]);
