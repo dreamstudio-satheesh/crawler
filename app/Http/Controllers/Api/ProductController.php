@@ -27,8 +27,8 @@ class ProductController extends BaseController
 
         $keywordArray = [];
 
-        if ($keywords && strpos($keywords, ',') !== false) {
-            $keywordArray = explode(',', $keywords);
+        if ($keywords) {
+            $keywordArray = strpos($keywords, ',') !== false ? explode(',', $keywords) : [$keywords];
         }
 
         $products = Product::query();
