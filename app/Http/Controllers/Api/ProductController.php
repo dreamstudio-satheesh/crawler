@@ -34,14 +34,14 @@ class ProductController extends BaseController
     $products = Product::query();
 
     if ($query) {
-        //$products->where('name', 'LIKE', "%{$query}%");
-        $products->where('name', $query);
+        $products->where('name', 'ILIKE', "%{$query}%");
+        
     }
 
     if (!empty($keywordArray)) {
         $products->where(function ($q) use ($keywordArray) {
             foreach ($keywordArray as $keyword) {
-                $q->orWhere('name', 'LIKE', "%{$keyword}%");
+                $q->orWhere('name', 'ILIKE', "%{$keyword}%");
                 $q->orWhere('description', 'LIKE', "%{$keyword}%");
             }
         });
