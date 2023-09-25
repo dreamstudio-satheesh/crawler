@@ -16,47 +16,49 @@ class ProductController extends BaseController
     }
 
     public function search(Request $request)
-{
-    $query = $request->input('query');
-    $keywords = $request->input('keywords');
-    $per_page = 20;
+    {
+        $query = $request->input('query');
+        $keywords = $request->input('keywords');
+        $per_page = 20;
 
-    if ($request->has('per_page')) {
-        $per_page = $request->per_page;
+        if ($request->has('per_page')) {
+            $per_page = $request->per_page;
+        }
+
+        $keywordArray = [];
+
+        if ($keywords && strpos($keywords, ',') !== false) {
+            $keywordArray = explode(',', $keywords);
+        }
+
+        $products = Product::query();
+
+        if ($query) {
+            $products->where('name', 'LIKE', "%{$query}%");
+        }
+
+        if (!empty($keywordArray)) {
+            $products->orWhere(function ($q) use ($keywordArray) {
+                foreach ($keywordArray as $keyword) {
+                    $q->orWhere('name', 'LIKE', "%{$keyword}%");
+                    $q->orWhere('description', 'LIKE', "%{$keyword}%");
+                }
+            });
+        }
+
+        $products = $products->with(['link', 'website'])->paginate($per_page);
+
+        return response()->json(
+            [
+                'data' => ProductResource::collection($products->items()),
+                'pagination' => [
+                    'current_page' => $products->currentPage(),
+                    'last_page' => $products->lastPage(),
+                    'per_page' => $products->perPage(),
+                    'total' => $products->total(),
+                ],
+            ],
+            200,
+        );
     }
-
-    $keywordArray = [];
-
-    if ($keywords && strpos($keywords, ',') !== false) {
-        $keywordArray = explode(',', $keywords);
-    }
-
-    $products = Product::query();
-
-    if ($query) {
-        $products->where('name', 'LIKE', "%{$query}%");
-    }
-
-    if (!empty($keywordArray)) {
-        $products->andWhere(function ($q) use ($keywordArray) {
-            foreach ($keywordArray as $keyword) {
-                $q->orWhere('name', 'LIKE', "%{$keyword}%");
-                $q->orWhere('description', 'LIKE', "%{$keyword}%");
-            }
-        });
-    }
-
-    $products = $products->with(['link', 'website'])->paginate($per_page);
-
-    return response()->json([
-        'data' => ProductResource::collection($products->items()),
-        'pagination' => [
-            'current_page' => $products->currentPage(),
-            'last_page' => $products->lastPage(),
-            'per_page' => $products->perPage(),
-            'total' => $products->total(),
-        ]
-    ], 200);
-}
-
 }
