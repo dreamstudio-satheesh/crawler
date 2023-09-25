@@ -38,7 +38,7 @@ class ProductController extends BaseController
     }
 
     if (!empty($keywordArray)) {
-        $products->where(function ($q) use ($keywordArray) {
+        $products->andWhere(function ($q) use ($keywordArray) {
             foreach ($keywordArray as $keyword) {
                 $q->orWhere('name', 'LIKE', "%{$keyword}%");
                 $q->orWhere('description', 'LIKE', "%{$keyword}%");
