@@ -46,6 +46,11 @@ class ProductController extends BaseController
             });
         }
 
+        // Prioritize rows that have exact match with $query
+        if ($query) {
+            $products->orderByRaw('CASE WHEN name = ? THEN 1 ELSE 2 END, name', [$query]);
+        }
+
         $products = $products->with(['link', 'website'])->paginate($per_page);
 
         return response()->json(
