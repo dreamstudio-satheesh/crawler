@@ -12,7 +12,7 @@ class ProductController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('ip.check');
+      //  $this->middleware('ip.check');
     }
 
     public function search(Request $request)
