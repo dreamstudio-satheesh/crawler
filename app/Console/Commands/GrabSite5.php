@@ -74,6 +74,7 @@ class GrabSite5 extends Command
                         $data['price'] = $node->text();
                     } else {
                         $this->info('No match found for price selector: ' . $website->price);
+                        $data['price'] ='Nill';
                     }
 
                     // For the image link
