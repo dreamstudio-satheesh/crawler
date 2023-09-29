@@ -36,7 +36,7 @@ class GrabSite5 extends Command
     {
         $id = 5;
         $website = Website::where('id', $id)->first();
-        $scrapedlinks = ScrapedLink::where('website_id', $id)->where('id','>','19366')->cursor();
+        $scrapedlinks = ScrapedLink::where('website_id', $id)->where('id','>','20869')->cursor();
 
         foreach ($scrapedlinks as $item) {
             $product=Product::where('links_id',$item->id)->count();
@@ -145,7 +145,7 @@ class GrabSite5 extends Command
                 // Manual garbage collection
                 gc_collect_cycles();
 
-                sleep(0.20);
+                sleep(0.50);
             } catch (\Throwable $th) {
                 Log::error("Error scraping link {$item->url}: " . $th->getMessage() . "\n" . $th->getTraceAsString());
             }

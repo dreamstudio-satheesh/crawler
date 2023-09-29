@@ -142,7 +142,7 @@ class GrabSite6 extends Command
                 // Manual garbage collection
                 gc_collect_cycles();
 
-                sleep(0.20);
+                sleep(0.50);
             } catch (\Throwable $th) {
                 Log::error("Error scraping link {$item->url}: " . $th->getMessage() . "\n" . $th->getTraceAsString());
             }
