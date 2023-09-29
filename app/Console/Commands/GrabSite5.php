@@ -36,7 +36,7 @@ class GrabSite5 extends Command
     {
         $id = 5;
         $website = Website::where('id', $id)->first();
-        $scrapedlinks = ScrapedLink::where('website_id', $id)->where('id','>','18462')->cursor();
+        $scrapedlinks = ScrapedLink::where('website_id', $id)->where('id','>','19366')->cursor();
 
         foreach ($scrapedlinks as $item) {
             $product=Product::where('links_id',$item->id)->count();
