@@ -46,6 +46,7 @@ class ScrapedlinkController extends Controller
 
             if ($request->title) {
                 $node = $crawler->filter($request->title);
+                dd($node);
                 if ($node->count() > 0) {
                     $data['title'] = $node->text();
                 } else {
