@@ -18,6 +18,6 @@ class Product extends Model
 
     public function website()
     {
-        return $this->belongsTo(Website::class,'website_id')->select(['id','url']);
+        return $this->belongsTo(Website::class,'website_id')->select(['id','name','url']);
     }
 }
