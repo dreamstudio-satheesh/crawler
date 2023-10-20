@@ -23,22 +23,34 @@ class ResizeProductImages extends Command
 
         foreach ($products as $product) {
             $imagePath = public_path($product->image);
-            
+
             $this->info(" image  path: {$imagePath}");
 
             if (file_exists($imagePath)) {
-                // Get the file size in bytes
-                $fileSize = filesize($imagePath);
 
-                $img = Image::make($imagePath)->resize(400, 150, function ($constraint) {
+                
+                // $fileSize = filesize($imagePath);
+
+                // Get the pathinfo of the file
+                $pathinfo = pathinfo($product->image);
+
+                // Get the filename without the extension
+                $filename = basename($product->image, '.' . $pathinfo['extension']);
+
+                $this->info("Resized image for product ID: {$filename} {$product->id} ");
+
+
+
+                /*  $img = Image::make($imagePath)->resize(300, 300, function ($constraint) {
                     $constraint->aspectRatio();
-                });
-                $img->save($imagePath);
+                })->encode('png', 90);
 
-                $img->destroy();
+                $img->save(public_path($product->image));
+
+                $img->destroy(); */
 
                 // If the file size is greater than 500 KB
-               /*  if ($fileSize > (500 * 1024)) {
+                /*  if ($fileSize > (500 * 1024)) {
                     $image = Image::make($imagePath);
 
                     $image->resize(null, 400, function ($constraint) {
@@ -49,9 +61,10 @@ class ResizeProductImages extends Command
                     $image->destroy();
                 } */
 
-               
+                
+                
 
-                $this->info("Resized image for product ID: {$product->id}");
+
             } else {
                 $this->error("Image not found for product ID: {$product->id}");
             }
