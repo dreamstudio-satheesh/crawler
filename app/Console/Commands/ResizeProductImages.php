@@ -41,14 +41,14 @@ class ResizeProductImages extends Command
 
                 $img = Image::make($imagePath)->resize(300, 300, function ($constraint) {
                     $constraint->aspectRatio();
-                })->encode('png', 90);
+                })->encode('webp', 90);
 
-                $img->save(public_path('storage/products/' . $filename . '.png'));
+                $img->save(public_path('storage/products/' . $filename . '.webp'));
 
 
                 //update product image
                 Product::where('id', $product->id)
-                    ->update(['image' => 'storage/products/' . $filename . '.png']);
+                    ->update(['image' => 'storage/products/' . $filename . '.webp']);
             
 
                 $this->info("Resized image for product ID: {$filename} {$product->id} ");
