@@ -30,8 +30,15 @@ class ResizeProductImages extends Command
                 // Get the file size in bytes
                 $fileSize = filesize($imagePath);
 
+                $img = Image::make($imagePath)->resize(400, 150, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $img->save($imagePath);
+
+                $img->destroy();
+
                 // If the file size is greater than 500 KB
-                if ($fileSize > (500 * 1024)) {
+               /*  if ($fileSize > (500 * 1024)) {
                     $image = Image::make($imagePath);
 
                     $image->resize(null, 400, function ($constraint) {
@@ -40,7 +47,7 @@ class ResizeProductImages extends Command
 
                     $image->save($imagePath, 90); // Save with 90% quality
                     $image->destroy();
-                }
+                } */
 
                
 
