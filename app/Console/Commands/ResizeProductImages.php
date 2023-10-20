@@ -28,7 +28,7 @@ class ResizeProductImages extends Command
 
             if (file_exists($imagePath)) {
 
-                
+
                 // $fileSize = filesize($imagePath);
 
                 // Get the pathinfo of the file
@@ -37,17 +37,24 @@ class ResizeProductImages extends Command
                 // Get the filename without the extension
                 $filename = basename($product->image, '.' . $pathinfo['extension']);
 
-                $this->info("Resized image for product ID: {$filename} {$product->id} ");
+                
 
-
-
-                /*  $img = Image::make($imagePath)->resize(300, 300, function ($constraint) {
+                $img = Image::make($imagePath)->resize(300, 300, function ($constraint) {
                     $constraint->aspectRatio();
                 })->encode('png', 90);
 
-                $img->save(public_path($product->image));
+                $img->save(public_path('storage/products/' . $filename . '.png'));
 
-                $img->destroy(); */
+
+                //update product image
+                Product::where('id', $product->id)
+                    ->update(['image' => 'storage/products/' . $filename . '.png']);
+            
+
+                $this->info("Resized image for product ID: {$filename} {$product->id} ");
+
+
+                $img->destroy(); 
 
                 // If the file size is greater than 500 KB
                 /*  if ($fileSize > (500 * 1024)) {
