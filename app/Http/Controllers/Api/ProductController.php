@@ -39,7 +39,7 @@ class ProductController extends BaseController
             $products->orWhere(function ($q) use ($keywordArray) {
                 foreach ($keywordArray as $keyword) {
                     $q->orWhere('name', 'LIKE', "%{$keyword}%");
-                    $q->orWhere('description', 'LIKE', "%{$keyword}%");
+                   // $q->orWhere('description', 'LIKE', "%{$keyword}%");
                 }
             });
         }
