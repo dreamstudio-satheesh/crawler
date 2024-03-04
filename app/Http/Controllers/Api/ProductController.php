@@ -25,18 +25,22 @@ class ProductController extends BaseController
         $products = Product::query();
 
         if ($query) {
-            $products->where('name', 'LIKE', "%{$query}%");
+            // Using REGEXP for exact word match
+            $products->where('name', 'REGEXP', '[[:<:]]' . $query . '[[:>:]]');
         }
 
         if (!empty($keywordArray)) {
             $products->where(function ($q) use ($keywordArray) {
                 foreach ($keywordArray as $keyword) {
-                    $q->orWhere('name', 'LIKE', "%{$keyword}%");
-                    $q->orWhere('description', 'LIKE', "%{$keyword}%");
+                    // Ensure each keyword respects word boundaries
+                    $q->orWhere('name', 'REGEXP', '[[:<:]]' . $keyword . '[[:>:]]');
+                    // Uncomment and use REGEXP for description or any other fields as needed
+                    // $q->orWhere('description', 'REGEXP', '[[:<:]]'.$keyword.'[[:>:]]');
                 }
             });
         }
 
+        // You might still want to use orderByRaw if exact matches should be prioritized
         if ($query) {
             $products->orderByRaw('CASE WHEN name = ? THEN 1 ELSE 2 END, name', [$query]);
         }
