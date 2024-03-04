@@ -12,10 +12,52 @@ class ProductController extends BaseController
 {
     public function __construct()
     {
-      //  $this->middleware('ip.check');
+        //  $this->middleware('ip.check');
     }
 
     public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $keywords = $request->input('keywords');
+        $per_page = $request->input('per_page', 20);
+        $keywordArray = !empty($keywords) ? array_map('trim', explode(',', $keywords)) : [];
+
+        $products = Product::query();
+
+        if ($query) {
+            $products->where('name', 'LIKE', "%{$query}%");
+        }
+
+        if (!empty($keywordArray)) {
+            $products->where(function ($q) use ($keywordArray) {
+                foreach ($keywordArray as $keyword) {
+                    $q->orWhere('name', 'LIKE', "%{$keyword}%");
+                    $q->orWhere('description', 'LIKE', "%{$keyword}%");
+                }
+            });
+        }
+
+        if ($query) {
+            $products->orderByRaw('CASE WHEN name = ? THEN 1 ELSE 2 END, name', [$query]);
+        }
+
+        $products = $products->with(['link', 'website'])->paginate($per_page);
+
+        return response()->json(
+            [
+                'data' => ProductResource::collection($products->items()),
+                'pagination' => [
+                    'current_page' => $products->currentPage(),
+                    'last_page' => $products->lastPage(),
+                    'per_page' => $products->perPage(),
+                    'total' => $products->total(),
+                ],
+            ],
+            200,
+        );
+    }
+
+    /* public function search(Request $request)
     {
         $query = $request->input('query');
         $keywords = $request->input('keywords');
@@ -62,5 +104,5 @@ class ProductController extends BaseController
             ],
             200,
         );
-    }
+    } */
 }
