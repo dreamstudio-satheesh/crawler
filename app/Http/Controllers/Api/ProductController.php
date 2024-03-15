@@ -37,14 +37,14 @@ class ProductController extends BaseController
         }
 
         // If you want to shuffle results only when no specific query is given, you can conditionally apply inRandomOrder()
-       // if (empty($query) && empty($keywords)) {
+        if (empty($query) && empty($keywords)) {
             $products->inRandomOrder();
-        //}
+        }
 
         // Remove or comment out the following line if you're using inRandomOrder() as it conflicts with specific ordering
-        // if ($query) {
-        //     $products->orderByRaw('CASE WHEN name = ? THEN 1 ELSE 2 END, name', [$query]);
-        // }
+        if ($query) {
+            $products->orderByRaw('CASE WHEN name = ? THEN 1 ELSE 2 END, name', [$query]);
+        }
 
         $products = $products->with(['link', 'website'])->paginate($per_page);
 
