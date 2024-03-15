@@ -25,24 +25,26 @@ class ProductController extends BaseController
         $products = Product::query();
 
         if ($query) {
-            // Using RLIKE for exact word match with alternative syntax
-            $products->where('name', 'RLIKE', '\\b' . $query . '\\b');
+            $products->where('name', 'RLIKE', '\\b' . $query . '\\b')->orWhere('description', 'RLIKE', '\\b' . $query . '\\b');
         }
 
         if (!empty($keywordArray)) {
             $products->where(function ($q) use ($keywordArray) {
                 foreach ($keywordArray as $keyword) {
-                    // Ensure each keyword respects word boundaries using RLIKE
-                    $q->orWhere('name', 'RLIKE', '\\b' . $keyword . '\\b');
-                    // Uncomment and use RLIKE for description or any other fields as needed
-                    // $q->orWhere('description', 'RLIKE', '\\b'.$keyword.'\\b');
+                    $q->orWhere('name', 'RLIKE', '\\b' . $keyword . '\\b')->orWhere('description', 'RLIKE', '\\b' . $keyword . '\\b');
                 }
             });
         }
 
-        if ($query) {
-            $products->orderByRaw('CASE WHEN name = ? THEN 1 ELSE 2 END, name', [$query]);
+        // If you want to shuffle results only when no specific query is given, you can conditionally apply inRandomOrder()
+        if (empty($query) && empty($keywords)) {
+            $products->inRandomOrder();
         }
+
+        // Remove or comment out the following line if you're using inRandomOrder() as it conflicts with specific ordering
+        // if ($query) {
+        //     $products->orderByRaw('CASE WHEN name = ? THEN 1 ELSE 2 END, name', [$query]);
+        // }
 
         $products = $products->with(['link', 'website'])->paginate($per_page);
 
