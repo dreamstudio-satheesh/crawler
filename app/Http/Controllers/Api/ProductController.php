@@ -25,13 +25,15 @@ class ProductController extends BaseController
         $products = Product::query();
 
         if ($query) {
-            $products->where('name', 'RLIKE', '\\b' . $query . '\\b')->orWhere('description', 'RLIKE', '\\b' . $query . '\\b');
+            $products->where('name', 'RLIKE', '\\b' . $query . '\\b');
+            //->orWhere('description', 'RLIKE', '\\b' . $query . '\\b');
         }
 
         if (!empty($keywordArray)) {
             $products->where(function ($q) use ($keywordArray) {
                 foreach ($keywordArray as $keyword) {
-                    $q->orWhere('name', 'RLIKE', '\\b' . $keyword . '\\b')->orWhere('description', 'RLIKE', '\\b' . $keyword . '\\b');
+                    $q->orWhere('name', 'RLIKE', '\\b' . $keyword . '\\b');
+                    //->orWhere('description', 'RLIKE', '\\b' . $keyword . '\\b');
                 }
             });
         }
