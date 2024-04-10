@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['buildingworld.com','*.buildingworld.com','*'],
+    'allowed_origins' => ['buildingworld.com','*.buildingworld.com'],
 
     'allowed_origins_patterns' => [],
 
