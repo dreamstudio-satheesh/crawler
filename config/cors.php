@@ -25,6 +25,8 @@ return [
 
     'allowed_headers' => ['*'],
 
+    'referrer-policy' => ['origin-when-cross-origin'],
+
     'exposed_headers' => [],
 
     'max_age' => 0,
