@@ -19,13 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['buildingworld.com','*.buildingworld.com'],
 
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
-
-    'referrer-policy' => ['origin-when-cross-origin'],
 
     'exposed_headers' => [],
 
